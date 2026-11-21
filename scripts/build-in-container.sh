@@ -82,10 +82,13 @@ if [ "${MAJOR}" -lt 5 ]; then
     COMMON_FLAGS+=(--disable-bluez)
 fi
 
-# Older configure scripts want python2; newer want python3. Pick whatever
-# exists in the era container.
+# Older configure scripts want python2 (QEMU <= 4.x era containers expose it
+# as `python`, not `python2`); newer ones want python3.
 if command -v python2 >/dev/null 2>&1; then
     PYTHON_BIN=python2
+elif command -v python >/dev/null 2>&1 \
+    && python -c 'import sys; sys.exit(0 if sys.version_info[0] == 2 else 1)' 2>/dev/null; then
+    PYTHON_BIN=python
 else
     PYTHON_BIN=python3
 fi
