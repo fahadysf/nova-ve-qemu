@@ -5,7 +5,7 @@
 FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive LANG=C.UTF-8
-RUN sed -i 's|archive.ubuntu.com|old-releases.ubuntu.com|g; s|security.ubuntu.com|old-releases.ubuntu.com|g' /etc/apt/sources.list \
+RUN printf 'deb http://archive.ubuntu.com/ubuntu bionic main\ndeb http://archive.ubuntu.com/ubuntu bionic universe\n' > /etc/apt/sources.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \

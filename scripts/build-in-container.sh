@@ -53,7 +53,8 @@ fi
 # No GUI stack, no Xen, no extras. Keep: KVM+TCG, virtio/e1000/vmxnet3 NICs,
 # qcow2, VNC console, QMP/monitor, serial. Optional features auto-disable
 # when their dev libraries are absent in the era container. Only flags that
-# exist across every supported version are used here.
+# exist across every supported version are used here; per-era exceptions
+# are appended below.
 COMMON_FLAGS=(
     --target-list=x86_64-softmmu
     --prefix="${PREFIX}"
@@ -67,13 +68,19 @@ COMMON_FLAGS=(
     --disable-usb-redir
     --disable-xen
     --disable-brlapi
-    --disable-bluez
     --disable-curl
     --disable-curses
     --disable-libnfs
     --disable-libiscsi
     --disable-seccomp
 )
+
+# --disable-bluez existed only up to the 4.x series; the bluetooth
+# subsystem was removed in QEMU 5.2 and the flag is now unknown.
+MAJOR="${VERSION%%.*}"
+if [ "${MAJOR}" -lt 5 ]; then
+    COMMON_FLAGS+=(--disable-bluez)
+fi
 
 # Older configure scripts want python2; newer want python3. Pick whatever
 # exists in the era container.
