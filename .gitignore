@@ -1,0 +1,4 @@
+build-*/
+dist/
+patches/*/*.patch.orig
+patches/*/*.rej
