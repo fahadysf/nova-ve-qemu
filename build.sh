@@ -34,8 +34,9 @@ docker run --rm \
     "${IMAGE}" \
     bash "scripts/build-in-container.sh" "${VERSION}"
 
-# The container wrote dist/*.deb as root; hand it back to the runner user.
-sudo chown -R "$(id -u):$(id -g)" "${ROOT}/dist" 2>/dev/null || true
+# The container wrote build/dist artifacts as root; hand them back to the
+# runner user so later cleanup steps can remove them.
+sudo chown -R "$(id -u):$(id -g)" "${ROOT}/dist" "${ROOT}/build-${VERSION}" 2>/dev/null || true
 
 echo "==> artifacts:"
 ls -la "${ROOT}/dist"

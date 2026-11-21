@@ -30,7 +30,7 @@ jobs:
             tier: "current"
     steps:
       - name: Clean workspace (self-hosted hygiene)
-        run: rm -rf ./* ./.??* || true
+        run: sudo rm -rf ./* ./.??* || true
 
       - uses: actions/checkout@v4
 
@@ -42,7 +42,7 @@ jobs:
 
       - name: Clean build tree (keep the runner lean)
         if: always()
-        run: rm -rf "build-${{ matrix.version }}" || true
+        run: sudo rm -rf "build-${{ matrix.version }}" dist || true
 
       - uses: actions/upload-artifact@v4
         with:
