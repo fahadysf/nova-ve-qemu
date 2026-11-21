@@ -5,7 +5,7 @@
 FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive LANG=C.UTF-8
-RUN printf 'deb http://archive.ubuntu.com/ubuntu bionic main\ndeb http://archive.ubuntu.com/ubuntu bionic universe\n' > /etc/apt/sources.list \
+RUN printf 'deb http://archive.ubuntu.com/ubuntu bionic main universe\ndeb http://archive.ubuntu.com/ubuntu bionic-updates main universe\n' > /etc/apt/sources.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \

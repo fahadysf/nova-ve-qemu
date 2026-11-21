@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive LANG=C.UTF-8
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
+        git \
         python3 \
         python3-venv \
         python3-pip \
