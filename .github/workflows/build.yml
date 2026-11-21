@@ -54,7 +54,9 @@ jobs:
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
-    runs-on: ubuntu-latest
+    # Everything — builds AND release publishing — runs on our own runner
+    # fleet; nothing depends on GitHub-hosted capacity.
+    runs-on: [self-hosted, qemu-build]
     permissions:
       contents: write
     steps:
