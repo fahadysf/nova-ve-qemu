@@ -22,7 +22,7 @@ docker run --rm \
         echo '--- version string matches ${VERSION}:'
         ${BIN} --version | head -1 | grep -F 'version ${VERSION}'
         echo '--- machine pc available:'
-        ${BIN} -machine help | grep -E '^\s+pc(\s|\$)' | head -2
+        ${BIN} -machine help | grep -E '^pc([[:space:]]|\$)' | head -2
         echo '--- required NIC models available:'
         ${BIN} -device help | grep -oE 'virtio-net-pci|e1000|vmxnet3' | sort -u
         test \"\$( ${BIN} -device help | grep -coE 'virtio-net-pci|e1000|vmxnet3' )\" -ge 3
