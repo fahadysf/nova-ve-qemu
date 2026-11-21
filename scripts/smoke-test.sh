@@ -27,7 +27,7 @@ docker run --rm \
         ${BIN} -device help | grep -oE 'virtio-net-pci|e1000|vmxnet3' | sort -u
         test \"\$( ${BIN} -device help | grep -coE 'virtio-net-pci|e1000|vmxnet3' )\" -ge 3
         echo '--- KVM accel available in build:'
-        ${BIN} -accel help | grep -q kvm
+        ${BIN} -accel help 2>/dev/null | grep -q kvm || ${BIN} -machine accel=help 2>&1 | grep -q kvm
         echo 'SMOKE OK'
     "
 echo "==> smoke test passed"
