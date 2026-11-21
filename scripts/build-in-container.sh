@@ -116,6 +116,7 @@ Section: utils
 Priority: optional
 Architecture: amd64
 Maintainer: nova-ve <info@nova-ve.com>
+Depends: libglib2.0-0 | libglib2.0-0t64, libpixman-1-0
 Description: QEMU ${VERSION} (headless x86_64 system emulation) for nova-ve
  Self-contained QEMU ${VERSION} build installed under ${PREFIX}.
  Built from the upstream qemu-${VERSION} release tarball with a minimal

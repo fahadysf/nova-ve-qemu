@@ -14,8 +14,9 @@ docker run --rm \
     -v "$(dirname "${DEB}"):/debs:ro" \
     ubuntu:26.04 \
     bash -euo pipefail -c "
-        apt-get update -qq && apt-get install -y -qq dpkg >/dev/null
-        dpkg -i /debs/$(basename "${DEB}")
+        apt-get update -qq
+        # apt (not dpkg -i) so the declared Depends resolve (libglib/libpixman).
+        apt-get install -y -qq /debs/$(basename "${DEB}") >/dev/null
         echo '--- version:'
         ${BIN} --version
         echo '--- version string matches ${VERSION}:'
